@@ -1,6 +1,7 @@
 from os import listdir
 from os.path import isfile, join
 import numpy as np
+import tensorflow.tf
 from PIL import Image
 def justfilenames(dir):  # search all files in the dir
     onlyfiles = [f for f in listdir(dir) if isfile(join(dir, f))]
@@ -23,6 +24,7 @@ def err(text):  # to print something red
         print(cont)
     else:
         print(text)
+
 
 
 def blue(text):  # to print something blue
@@ -52,6 +54,7 @@ def rgb_to_grey_rgbdata(img, size=(64, 64)):
     one_channel = np.asarray(grey_scale).reshape(64, 64, 1)
     imgdat = np.concatenate((one_channel, one_channel, one_channel), axis=2)
     return imgdat
+
 
 def main():
     import h5py, numpy as np
