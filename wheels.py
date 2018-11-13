@@ -1,7 +1,6 @@
 from os import listdir
 from os.path import isfile, join
 import numpy as np
-import tensorflow.tf
 from PIL import Image
 def justfilenames(dir):  # search all files in the dir
     onlyfiles = [f for f in listdir(dir) if isfile(join(dir, f))]
