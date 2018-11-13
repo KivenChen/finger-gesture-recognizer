@@ -2,6 +2,7 @@
 import numpy as np
 import PIL.Image as Image
 import h5py
+import tensorflow as tf
 from time import sleep
 from resnets_utils import *
 from keras.preprocessing.image import array_to_img, img_to_array
@@ -11,6 +12,8 @@ from keras.preprocessing.image import array_to_img, img_to_array
 # TODO 3: read from h5 and create new array
 # TODO 4: concat the two array and update dataset
 from wheels import *
+
+
 blue('Loading original dataset')
 train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig, classes = load_dataset('datasets nongrey')
 
@@ -38,8 +41,15 @@ for s in train_pos.readlines():
     image = Image.open(dir)
     imgdat = rgb_to_grey_rgbdata(image)
     imgdat = imgdat.reshape((1, 64, 64, 3))
-    train_set_x_orig = np.concatenate((train_set_x_orig, imgdat), axis=0)  # todo see if it works
-    train_set_y_orig = np.concatenate((train_set_y_orig, np.array([[num]])), axis=1)
+    
+    image = tf.image.random_brightness(image, 0.7)
+    image = tf.image.flip_left_right(image)
+    image = tf.image.random_contrast(image, 0.7)
+    imgdat2 = rgb_to_grey_rgbdata(image)
+    imgdat2 = imgdat2.reshape((1, 64, 64, 3))
+    
+    train_set_x_orig = np.concatenate((train_set_x_orig, imgdat, imgdat2), axis=0)  # todo see if it works
+    train_set_y_orig = np.concatenate((train_set_y_orig, np.array([[num]]), np.array([[num]])), axis=1)
     i += 1
 print(train_set_x_orig.shape)
 print(train_set_y_orig.shape)
