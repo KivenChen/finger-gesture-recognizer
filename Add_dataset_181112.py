@@ -44,7 +44,7 @@ for s in train_pos.readlines():
     
     image = tf.image.random_brightness(image, 0.7)
     image = tf.image.flip_left_right(image)
-    image = tf.image.random_contrast(image, 0.7)
+    image = tf.image.random_contrast(image, 0.3, 1.0)
     imgdat2 = rgb_to_grey_rgbdata(image)
     imgdat2 = imgdat2.reshape((1, 64, 64, 3))
     
