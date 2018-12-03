@@ -1,2 +1,7 @@
 *.h5
+
 *.npy
+
+datasets
+datasets nongrey
+images
