@@ -1,6 +1,8 @@
 *.h5
-
+*.jpg
+*.jpeg
 *.npy
+*.png
 
 datasets
 datasets nongrey
