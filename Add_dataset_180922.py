@@ -12,7 +12,7 @@ from keras.preprocessing.image import array_to_img, img_to_array
 # TODO 4: concat the two array and update dataset
 from wheels import *
 blue('Loading original dataset')
-train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig, classes = load_dataset('datasets nongrey')
+train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig, classes = load_h5_dataset('datasets nongrey')
 
 for i in range(train_set_x_orig.shape[0]):
     imgdat = train_set_x_orig[i]

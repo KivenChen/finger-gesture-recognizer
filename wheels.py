@@ -68,6 +68,7 @@ def rgb_to_grey_rgbdata(img, size=(64, 64)):
 
 
 def main():
+
     import h5py, numpy as np
     # default: 'a', which means read or write if exists; create otherwise
     f = h5py.File('datasets/train_catvnoncat.h5')

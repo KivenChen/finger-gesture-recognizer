@@ -11,39 +11,51 @@ from resnets_utils import *
 # TODO 4: concat the two array and update dataset
 from wheels import *
 blue('Loading original dataset')
-train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig, classes = load_dataset()
+train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig, classes = load_h5_dataset('datasets nongrey')
+
+print(train_set_x_orig.shape)
 green('Loading completed')
-train_pos = open("images/train.txt")
+train_pos = open("./images/train.txt")
 i = 1
-for s in train_pos.readlines():
+result=[train_set_x_orig,]
+for s in [part for part in train_pos.read().split('./')if part != '']:
     if i % 100 == 0:
         print("round "+str(i))
     dir, num = s.split(" ")
     num = int(num)
-    image = Image.open(dir)
+    try:
+        image = Image.open(dir)
+    except:
+        continue
     imgdat = np.asarray(image)
-    imgdat.reshape((1, 64, 64, 3))
-
-    train_set_x_orig = np.concatenate((train_set_x_orig, imgdat), axis=0)  # todo see if it works
+    imgdat = imgdat.reshape((1, 64, 64, 3))
+    result.append(imgdat)
     train_set_y_orig = np.concatenate((train_set_y_orig, np.array([[num]])), axis=1)
     i += 1
+import time
+time.sleep(1)
+train_set_x_orig = np.concatenate(result, axis=0)  # todo see if it works
 print(train_set_x_orig.shape)
 print(train_set_y_orig.shape)
 
+result = [test_set_x_orig,]
 test_pos = open("images/test.txt")
 i = 1
-for s in test_pos.readlines():
+for s in [part for part in test_pos.read().split('./')if part != '']:
     if i % 100 == 0:
         print("round "+str(i))
     dir, num = s.split(" ")
     num = int(num)
-    image = Image.open(dir)
+    try:
+        image = Image.open(dir)
+    except:
+        continue
     imgdat = np.asarray(image)
     imgdat.resize((1,64,64,3))
-    test_set_x_orig = np.concatenate((test_set_x_orig, imgdat), axis=0)
+    result.append(imgdat)
     test_set_y_orig = np.concatenate((test_set_y_orig, np.array([[num]])), axis=1)
     i += 1
-
+test_set_x_orig = np.concatenate(result, axis=0)
 print(test_set_x_orig.shape)
 print()
 print(test_set_y_orig.shape)

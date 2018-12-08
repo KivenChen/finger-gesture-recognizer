@@ -457,7 +457,7 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accur
 
 # In[4]:
 
-X_train_orig, Y_train_orig, X_test_orig, Y_test_orig, classes = load_dataset()
+X_train_orig, Y_train_orig, X_test_orig, Y_test_orig, classes = load_h5_dataset()
 
 # Normalize image vectors
 X_train = X_train_orig/255.

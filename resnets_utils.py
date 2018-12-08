@@ -4,7 +4,7 @@ import tensorflow as tf
 import h5py
 import math
 from os.path import join
-def load_dataset(path='datasets'):
+def load_h5_dataset(path='datasets'):
     train_dataset = h5py.File(join(path, 'train_signs.h5'), "r")
     train_set_x_orig = np.array(train_dataset["train_set_x"][:]) # your train set features
     train_set_y_orig = np.array(train_dataset["train_set_y"][:]) # your train set labels
@@ -21,7 +21,7 @@ def load_dataset(path='datasets'):
     return train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig, classes
 
 
-def load_new_dataset(path='datasets'):
+def load_npy_dataset(path='datasets'):
     train_set_x_orig = np.load(join(path, "train_x.npy"))
     train_set_y_orig = np.load(join(path, "train_y.npy"))
     test_set_x_orig = np.load(join(path, "test_x.npy"))
@@ -31,7 +31,7 @@ def load_new_dataset(path='datasets'):
     return train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig, classes
 
 
-def random_mini_batches(X, Y, mini_batch_size = 64, seed = 0):
+def random_mini_batches(X, Y, mini_batch_size = 64, seed = None):
     """
     Creates a list of random minibatches from (X, Y)
     
@@ -47,7 +47,8 @@ def random_mini_batches(X, Y, mini_batch_size = 64, seed = 0):
     
     m = X.shape[0]                  # number of training examples
     mini_batches = []
-    np.random.seed(seed)
+    if seed:
+        np.random.seed(seed)
     
     # Step 1: Shuffle (X, Y)
     permutation = list(np.random.permutation(m))

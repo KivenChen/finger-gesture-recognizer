@@ -1,6 +1,6 @@
 from PIL import Image
 import numpy as np
-
+from resnets_utils import *
 from wheels import *
 
 
@@ -52,5 +52,23 @@ def read_from_class_folders_and_convert(src, todir='datasets/', tosize=64, test_
 		np.save(classes_arr, "classes")
 
 
+def check_repetitions(data: tuple=load_npy_dataset("datasets nongrey"), type_idx=0, origin_idx=0, from_input=True):
+	if from_input and type_idx == 0 and origin_idx == 0:
+		type_idx = int(input("Input: 0-Xtrain, 1-Ytrain, 2-Xtest, 3-Ytest, 4-classes\n"))
+		origin_idx = int(input("Input i so the i-th item will be seen as the origin of comparison\n"))
+	origin = data[type_idx][origin_idx]
+	counter = 0
+	record = [-1 for i in range(len(data[type_idx]))]
+
+	for n, i in enumerate(data[type_idx]):
+		if i.shape == origin.shape and np.equal(i, origin).all():
+			counter += 1
+			record[n] += 1
+	print("found ", counter-1, "repetitions")
+
+
 if __name__ == "__main__":
+	[check_repetitions(data=load_npy_dataset(), origin_idx=i, from_input=False) for i in range(100)] / exit()
+	_, _, x, y, _ = load_npy_dataset("datasets nongrey")
+	print(y.shape)
 	pass

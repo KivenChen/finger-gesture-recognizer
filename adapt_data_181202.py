@@ -9,7 +9,7 @@ datefmt = "%a %d %b %Y %H:%M:%S"
 formatter = log.Formatter(fmt, datefmt)
 log.basicConfig(filename='finger.log', level=log.INFO, format=fmt)
 
-X_train_orig, Y_train_orig, X_test_orig, Y_test_orig, classes = load_new_dataset("datasets nongrey")
+X_train_orig, Y_train_orig, X_test_orig, Y_test_orig, classes = load_npy_dataset("datasets nongrey")
 trainsets = []
 
 trainset = [X_train_orig / 255]
